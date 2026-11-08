@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "discord-claude-support-bot"
+version = "0.1.0"
+description = "A Discord support and moderation bot on the HTTP Interactions model: Ed25519-verified slash commands, Claude answers from a knowledge base with sources, a thread per case, handover to a human, flag-and-report moderation, rate limits and a daily spend cap."
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+  "fastapi>=0.110",
+  "uvicorn>=0.29",
+  "httpx>=0.27",
+  "anthropic>=2.0",
+  "cryptography>=42",
+  "websockets>=13",
+]
+
+[project.scripts]
+support-bot = "support_bot.cli:main"
+
+[tool.setuptools]
+packages = ["support_bot"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+timeout = 60
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501", "E731"]
